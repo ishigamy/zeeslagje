@@ -1,44 +1,14 @@
 let schepenData = [
-	{
-		naam: "vliegdekschip",
-		lengte: 5,
-		kleur: "groen",
-		afbeelding: "boot_groen.png",
-		actief: true,
-	},
-	{
-		naam: "slagschip",
-		lengte: 4,
-		kleur: "rood",
-		afbeelding: "boot_rood.png",
-		actief: true,
-	},
-	{
-		naam: "onderzeeer",
-		lengte: 3,
-		kleur: "geel",
-		afbeelding: "boot_geel.png",
-		actief: true,
-	},
-	{
-		naam: "torpedo",
-		lengte: 3,
-		kleur: "oranje",
-		afbeelding: "boot_oranje.png",
-		actief: true,
-	},
-	{
-		naam: "patrouille",
-		lengte: 2,
-		kleur: "blauw",
-		afbeelding: "boot_blauw.png",
-		actief: true,
-	},
-];
+    {naam: "vliegdekschip", lengte: 5, kleur: "groen", afbeelding: "boot_groen.png", actief: true},
+    {naam: "slagschip", lengte: 4, kleur: "rood", afbeelding: "boot_rood.png", actief: true},
+    {naam: "onderzeeer", lengte: 3, kleur: "geel", afbeelding: "boot_geel.png", actief: true},
+    {naam: "torpedo", lengte: 3, kleur: "oranje", afbeelding: "boot_oranje.png", actief: true},
+    {naam: "patrouille", lengte: 2, kleur: "blauw", afbeelding: "boot_blauw.png", actief: true}
+    ];
 
 let speelbord = Array(10)
 	.fill(null)
-	.map(() => Array(10).fill(null)); //array om geplaatste shepen op te slaan
+	.map(() => Array(10).fill(null)); //array om geplaatste schepen op te slaan
 
 function vulDropdown(elementId, waarden) {
 	const dropdown = document.getElementById(elementId);
@@ -184,10 +154,6 @@ function slaGamestateOp() {
 	localStorage.setItem("zeeslagGamestate", JSON.stringify(gamestate));
 }
 
-window.onload = function () {
-	herstelGamestate();
-};
-
 function startNieuwSpel() {
 	localStorage.clear(); // Verwijdert alle items uit de lokale opslag
 	location.reload();
@@ -236,23 +202,31 @@ function clearSchipPreview() {
 	}
 }
 
+function plaatsGeselecteerdSchip() {
+    if (!isSchipGeselecteerd()) {
+        toonFoutbericht("Selecteer eerst een schip.");
+        return;
+    }
+
+    const { schip, rij, kolom, richting } = haalGeselecteerdeWaarden();
+
+    if (!kanSchipPlaatsen(schip, rij, kolom, richting)) {
+        toonFoutbericht("Kan schip niet op deze locatie plaatsen.");
+        return;
+    }
+
+    plaatsSchip(schip, rij, kolom, richting);
+    document.getElementById("schepen").value = "";
+}
+
+window.onload = function () {
+	herstelGamestate();
+};
 document.getElementById("nieuwspel").addEventListener("click", startNieuwSpel);
 document.getElementById("schepen").addEventListener("change", toonSchipPreview);
 document.getElementById("rij").addEventListener("change", toonSchipPreview);
 document.getElementById("kolom").addEventListener("change", toonSchipPreview);
+document.getElementById("plaatsschip").addEventListener("click", plaatsGeselecteerdSchip);
 document.querySelectorAll("input[name=richting]").forEach((radio) => {
 	radio.addEventListener("change", toonSchipPreview);
-});
-document.getElementById("plaatsschip").addEventListener("click", function () {
-	if (isSchipGeselecteerd()) {
-		const { schip, rij, kolom, richting } = haalGeselecteerdeWaarden();
-		if (kanSchipPlaatsen(schip, rij, kolom, richting)) {
-			plaatsSchip(schip, rij, kolom, richting);
-			document.getElementById("schepen").value = "";
-		} else {
-			toonFoutbericht("Kan schip niet op deze locatie plaatsen.");
-		}
-	} else {
-		toonFoutbericht("Selecteer eerst een schip.");
-	}
 });
