@@ -1,0 +1,7 @@
+[
+{naam:"vliegdekschip",lengte:5,kleur:"groen",afbeelding:"boot_groen.png", actief:true},			
+{naam:"slagschip",lengte:4,kleur:"rood",afbeelding:"boot_rood.png", actief:true},				
+{naam:"onderzeeer",lengte:3,kleur:"geel",afbeelding:"boot_geel.png", actief:true},				
+{naam:"torpedo",lengte:3,kleur:"oranje",afbeelding:"boot_oranje.png", actief:true},
+{naam:"patrouille",lengte:2,kleur:"blauw",afbeelding:"boot_blauw.png", actief:true}
+]

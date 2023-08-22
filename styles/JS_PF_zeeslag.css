@@ -1,0 +1,79 @@
+/*
+CSS voor zeeslag
+Flexbox layout
+*/
+
+html {
+    background: url('../img/sea.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    color: teal;
+}
+
+h1 {
+    margin-left: 280px;
+    margin-bottom: 20px;
+}
+
+/* container flexbox */
+.container {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+/* raster flexbox */
+.raster {
+    flex: 0 0 460px;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 10px;
+    height: 400px;
+    margin-left: 50px;
+}
+
+/*kolom*/
+.raster > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    outline: 1px solid white;
+    background: silver;
+}
+
+/*rij*/
+.raster > div > div {
+    flex: 1 1 auto;
+    outline: 1px solid white;
+    width: 50%;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.formulier {
+    flex: 0 0 auto;
+    margin-left: 50px;
+    margin-top: 10px;
+    width: 40%;
+}
+
+label {
+    width: 6em;
+    display: inline-block;
+}
+
+select, .radiob {
+    padding: 0;
+    margin: 0;
+}
+
+#msg{
+	margin-left: 280px;
+	color:#104F4F;
+}
